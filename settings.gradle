@@ -1,0 +1,23 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "mini-mb"
+include ':app'
+include ':core-network'
+include ':data-login'
+include ':feature-login'
+include ':feature-balance'
+include ':data-balance'
+include ':core-datastore'
+include ':core-ui'
