@@ -13,11 +13,10 @@ just wanted to clarify a few things
 ## Tests
 - I wrote tests for the classes i felt most important that demonstrated my ability to write tests
 - There are some classes missing tests, but this is more due to lack of time
-- these classes are: BalanceUseCase, LoginRequestUseCase, BalanceViewModel
+- these classes are: BalanceUseCase, LoginRequestUseCase, BalanceViewModel, EncryptedPrefManager
 - Would've like to implement some snapshot tests too!
 
 ## Weird Dispatcher use?
 - I'm using a Main dispatcher on a network call because of navigation callback in LoginViewModel
 - ^ i definitely do not advocate this but for the sake of this exercise I think it's okay :)
-
 

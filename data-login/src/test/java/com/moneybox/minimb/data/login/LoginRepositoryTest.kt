@@ -38,7 +38,7 @@ class LoginRepositoryTest {
     }
     @Test
     fun `test fetch balance when result is success` () = runTest {
-        coEvery { loginApi.fetchLogin(loginRequest.email, loginRequest.password) } returns Response.success(loginResponse)
+        coEvery { loginApi.fetchLogin(loginRequest) } returns Response.success(loginResponse)
         val result = loginRepository.fetchLogin(loginRequest)
 
         assertEquals(loginResponse, result.getOrNull())
@@ -48,7 +48,7 @@ class LoginRepositoryTest {
 
     @Test
     fun `test fetch balance when result is failure` () = runTest {
-        coEvery { loginApi.fetchLogin(loginRequest.email, loginRequest.password) } returns Response.error(400, ResponseBody.create(
+        coEvery { loginApi.fetchLogin(loginRequest) } returns Response.error(400, ResponseBody.create(
             "application/json".toMediaTypeOrNull(),
             "{\"key\":[\"somestuff\"]}"
         ))

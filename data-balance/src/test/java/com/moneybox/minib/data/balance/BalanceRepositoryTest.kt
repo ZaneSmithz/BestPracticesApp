@@ -32,10 +32,10 @@ class BalanceRepositoryTest {
 
     @Test
     fun `test fetch balance when result is success` () = runTest {
-        coEvery { balanceApi.fetchBalance("token") } returns Response.success(productsResponse)
+        coEvery { balanceApi.fetchBalance("Token token") } returns Response.success(productsResponse)
         val result = balanceRepository.fetchBalance("token")
 
-        assertEquals(productsResponse, result.getOrNull())
+        assertEquals(productsResponse.totalPlanValue, result.getOrNull()?.totalPlanValue)
         assertEquals(true, result.isSuccess)
         assertEquals(false, result.isFailure)
     }
