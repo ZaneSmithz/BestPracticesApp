@@ -4,7 +4,7 @@ just wanted to clarify a few things
 
 ## API calls
 - I've just mocked the API call currently as I'm just receiving a 400 each time I attempt to call
-- unsure if this is due to incorrectly passing the POST request via header?
+- unsure if this is due to incorrectly passing the POST request via body?
 
 ## Shared Prefs
 - I'm using encrypted shared prefs to obfuscate the token, i'm not clearing it from the cache on destroy
