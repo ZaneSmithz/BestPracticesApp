@@ -1,6 +1,7 @@
 package com.moneybox.minib.feature.login
 
 import android.util.Patterns
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -22,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping
@@ -55,6 +57,7 @@ fun LoginScreen(
     updateIsValidEmail: (Boolean) -> Unit,
     loginClick: (() -> Unit) -> Unit
 ) {
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -106,6 +109,9 @@ fun LoginScreen(
             onClick = {
                 if(loginState.isValidEmail && loginState.isValidPassword) {
                     loginClick.invoke { navigateTo() }
+                }
+                else {
+                    Toast.makeText(context, "Invalid Email or Password", Toast.LENGTH_SHORT).show()
                 }
             }
         )
