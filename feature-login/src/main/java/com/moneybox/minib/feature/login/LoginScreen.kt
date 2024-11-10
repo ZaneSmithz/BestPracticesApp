@@ -6,17 +6,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -30,8 +22,9 @@ import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.moneybox.minib.feature.login.components.LoginButton
+import com.moneybox.minib.feature.login.components.LoginTextBox
 
 @Composable
 fun LoginRoute(viewModel: LoginViewModel = hiltViewModel(), navigateTo: () -> Unit) {
@@ -72,7 +65,7 @@ fun LoginScreen(
             contentDescription = "",
             tint = Color(0xFF00C2B5)
         )
-        MBTextBox(
+        LoginTextBox(
             label = "Email",
             value = loginState.email,
             updateValue = updateEmail,
@@ -85,7 +78,7 @@ fun LoginScreen(
             },
             isValid = loginState.isValidEmail && loginState.email.isNotBlank()
         )
-        MBTextBox(
+        LoginTextBox(
             label = "Password",
             value = loginState.password,
             updateValue = updatePassword,
@@ -116,56 +109,4 @@ fun LoginScreen(
             }
         )
     }
-}
-
-@Composable
-private fun LoginButton(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit
-) {
-    Button(
-        modifier = modifier.then(
-            Modifier
-                .fillMaxWidth(0.8f)
-                .height(50.dp)
-        ),
-        shape = RoundedCornerShape(10.dp),
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color(0xFF00C2B5)
-        ),
-        onClick = { onClick() }) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Text("LOG IN", color = Color.White)
-        }
-    }
-}
-
-@Composable
-private fun MBTextBox(
-    label: String,
-    value: String,
-    updateValue: (String) -> Unit,
-    visualTransformation: VisualTransformation,
-    validateField: ((String) -> Unit)? = null,
-    isValid: Boolean
-) {
-    TextField(
-        value = value,
-        onValueChange = { text ->
-            updateValue(text)
-            validateField?.let { validation ->
-                validation(text)
-            }
-        },
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White,
-            textColor = if(isValid) Color(0xFF006179) else Color.Red
-        ),
-        visualTransformation = visualTransformation,
-        label = { Text(text = label, fontSize = 12.sp) }
-    )
 }
