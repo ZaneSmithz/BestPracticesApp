@@ -41,7 +41,6 @@ internal class BalanceViewModel @Inject constructor(
                         _state.update { state -> state.copy(isLoading =  false, hasError = false) }
                     }
                     false -> _state.update { state -> state.copy(hasError =  true, isLoading = false) }
-
                 }
             }
         }

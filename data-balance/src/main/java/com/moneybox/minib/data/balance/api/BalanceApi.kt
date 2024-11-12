@@ -7,5 +7,5 @@ import retrofit2.http.Header
 
 interface BalanceApi {
     @GET("investorproducts")
-    suspend fun fetchBalance(@Header("Authorzation") token: String): Response<AllProductsResponse>
+    suspend fun fetchBalance(@Header("Authorization") token: String): Response<AllProductsResponse>
 }

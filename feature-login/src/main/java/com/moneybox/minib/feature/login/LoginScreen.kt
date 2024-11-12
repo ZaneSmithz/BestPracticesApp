@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -36,7 +37,8 @@ fun LoginRoute(viewModel: LoginViewModel = hiltViewModel(), navigateTo: () -> Un
         navigateTo = navigateTo,
         loginClick = viewModel::onLoginClick,
         updateIsValidEmail = viewModel::updateIsValidEmail,
-        updateIsValidPassword = viewModel::updateIsValidPassword
+        updateIsValidPassword = viewModel::updateIsValidPassword,
+        updateValidationError = viewModel::updateLoginValidation
     )
 }
 
@@ -45,12 +47,19 @@ fun LoginScreen(
     loginState: LoginState,
     updateEmail: (String) -> Unit,
     updatePassword: (String) -> Unit,
+    updateValidationError: (Boolean) -> Unit,
     navigateTo: () -> Unit,
     updateIsValidPassword: (Boolean) -> Unit,
     updateIsValidEmail: (Boolean) -> Unit,
     loginClick: (() -> Unit) -> Unit
 ) {
     val context = LocalContext.current
+    LaunchedEffect(key1 = loginState.validationError) {
+        if(loginState.validationError) {
+            Toast.makeText(context, "Invalid Login", Toast.LENGTH_SHORT).show()
+            updateValidationError(false)
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()

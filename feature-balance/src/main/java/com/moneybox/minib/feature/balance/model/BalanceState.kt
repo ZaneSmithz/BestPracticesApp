@@ -1,7 +1,7 @@
 package com.moneybox.minib.feature.balance.model
 
 data class BalanceState(
-    val balance: String = "£10,000.00",
+    val balance: String = "",
     val hasError: Boolean = false,
     val isLoading: Boolean = true
 )

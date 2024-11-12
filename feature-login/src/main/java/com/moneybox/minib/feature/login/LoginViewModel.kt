@@ -19,6 +19,7 @@ data class LoginState(
     val password: String = "",
     val isValidEmail: Boolean = false,
     val isValidPassword: Boolean = false,
+    val validationError: Boolean = false
 )
 @HiltViewModel
 class LoginViewModel @Inject constructor(
@@ -28,13 +29,6 @@ class LoginViewModel @Inject constructor(
 ): ViewModel() {
     private val _state = MutableStateFlow(LoginState())
     val state = _state.asStateFlow()
-
-    fun updateEmail(email: String){
-        _state.update { state -> state.copy(email = email) }
-    }
-    fun updatePassword(password: String){
-        _state.update { state -> state.copy(password = password) }
-    }
 
     fun onLoginClick(navigationCallback: () -> Unit) {
         viewModelScope.launch(dispatcher) {
@@ -51,7 +45,11 @@ class LoginViewModel @Inject constructor(
                     }
                     navigationCallback()
                 }
-                false -> navigationCallback() // as API returning 400 currently
+                false -> _state.update { state ->
+                    state.copy(
+                        validationError = true
+                    )
+                }
             }
         }
     }
@@ -62,5 +60,15 @@ class LoginViewModel @Inject constructor(
 
     fun updateIsValidPassword(isValidPassword: Boolean) {
         _state.update { state -> state.copy(isValidPassword = isValidPassword) }
+    }
+
+    fun updateEmail(email: String){
+        _state.update { state -> state.copy(email = email) }
+    }
+    fun updatePassword(password: String){
+        _state.update { state -> state.copy(password = password) }
+    }
+    fun updateLoginValidation(validationError: Boolean){
+        _state.update { state -> state.copy(validationError = validationError) }
     }
 }

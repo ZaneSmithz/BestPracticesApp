@@ -17,7 +17,6 @@ class EncryptedPrefManagerImpl @Inject constructor(
         encryptedPreferences.edit().putString(HIDDEN_TEXT, resource).apply()
     }
 
-    override fun getToken(): String? =
+    override fun getToken(): String?  =
         encryptedPreferences.getString(HIDDEN_TEXT, null)
-
 }

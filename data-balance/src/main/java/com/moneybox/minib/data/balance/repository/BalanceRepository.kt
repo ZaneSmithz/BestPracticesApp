@@ -14,7 +14,7 @@ internal class BalanceRepositoryImpl @Inject constructor(
 ): BalanceRepository {
     override suspend fun fetchBalance(token: String): Result<AllProductsResponse> {
         try {
-            val result = balanceApi.fetchBalance(token = "Token $token")
+            val result = balanceApi.fetchBalance(token = "Bearer $token")
             return if (result.isSuccessful) {
                 Result.success(result.body() ?: throw RuntimeException(""))
             } else {
